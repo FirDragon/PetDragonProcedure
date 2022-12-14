@@ -38,12 +38,12 @@ public class TouchDragon {
         if (isDragonMethod == null)
             return;
         Player source = event.getPlayer();
+        source.swing(InteractionHand.MAIN_HAND);
         if (!source.getMainHandItem().isEmpty() ||
             !(event.getTarget() instanceof ServerPlayer target) ||
             !isDragon(target)
         )
             return;
-        source.swing(InteractionHand.MAIN_HAND);
         if (Math.random() < 0.5F)
         {
             target.displayClientMessage(new TextComponent(String.format("[%s]摸了摸你", source.getName().getString())), true);
