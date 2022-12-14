@@ -46,11 +46,11 @@ public class TouchDragon {
         source.swing(InteractionHand.MAIN_HAND);
         if (Math.random() < 0.5F)
         {
-            target.displayClientMessage(new TextComponent(String.format("[%s]摸了摸你", source.getName())), true);
-            source.displayClientMessage(new TextComponent(String.format("你摸了摸[%s]，被咬了一口", target.getName())), true);
+            target.displayClientMessage(new TextComponent(String.format("[%s]摸了摸你", source.getName().getString())), true);
+            source.displayClientMessage(new TextComponent(String.format("你摸了摸[%s]，被咬了一口", target.getName().getString())), true);
         }else{
-            target.displayClientMessage(new TextComponent(String.format("[%s]摸了摸你，感觉很舒适", source.getName())), true);
-            source.displayClientMessage(new TextComponent(String.format("你摸了摸[%s]，感觉很舒适", target.getName())), true);
+            target.displayClientMessage(new TextComponent(String.format("[%s]摸了摸你，感觉很舒适", source.getName().getString())), true);
+            source.displayClientMessage(new TextComponent(String.format("你摸了摸[%s]，感觉很舒适", target.getName().getString())), true);
         }
     }
 }
