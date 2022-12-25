@@ -93,11 +93,12 @@ public class TouchDragon {
         {
             target.displayClientMessage(new TextComponent(String.format("[%s]\u6478\u4e86\u6478\u4f60", source.getName().getString())), true);
             source.displayClientMessage(new TextComponent(String.format("\u4f60\u6478\u4e86\u6478[%s]\uff0c\u88ab\u54ac\u4e86\u4e00\u53e3", target.getName().getString())), true);
+            target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 1));
             TouchParticles(ParticleTypes.LARGE_SMOKE, (ServerLevel)event.getWorld(), target);
         }else{
             target.displayClientMessage(new TextComponent(String.format("[%s]\u6478\u4e86\u6478\u4f60\uff0c\u611f\u89c9\u5f88\u8212\u9002", source.getName().getString())), true);
             source.displayClientMessage(new TextComponent(String.format("\u4f60\u6478\u4e86\u6478[%s]\uff0c\u611f\u89c9\u5f88\u8212\u9002", target.getName().getString())), true);
-            target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 1));
+            target.addEffect(new MobEffectInstance(MobEffects.LUCK, 100, 1));
             TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), target);
         }
     }
