@@ -1,0 +1,9 @@
+{
+  "key.pet_dragon_procedure.n_key": "感知附近的队友",
+  "text.you_are_very_hungry":"你感到非常饥饿！需要进食",
+  "text.sensing_nearby_teammates":"你正在感应附近的队友",
+  "text.touch_you":"%s摸了摸你.",
+  "text.touch_got_bitten":"你摸了摸%s被咬了一口.",
+  "text.touch_felt_comfortable":"%s摸了摸你感觉很舒服.",
+  "text.you_felt_comfortable":"你摸了摸%s感觉很舒服."
+}
