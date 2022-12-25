@@ -2,6 +2,7 @@ package com.cute_dragon_project.xingxing.pet_dragon_procedure.events;
 
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -66,6 +67,11 @@ public class TouchDragon {
 //            player.displayClientMessage(new TextComponent(ignored.getMessage()), true);
 //        }
     }
+    private void TouchParticles(SimpleParticleType particleType, ServerLevel level,ServerPlayer player)
+    {
+        Vec3 position = player.getPosition(0.0F);
+        level.sendParticles(particleType, position.x, position.y, position.z, 20,1,2,1,1);
+    }
     @SubscribeEvent
     void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
     {
@@ -87,14 +93,12 @@ public class TouchDragon {
         {
             target.displayClientMessage(new TextComponent(String.format("[%s]\u6478\u4e86\u6478\u4f60", source.getName().getString())), true);
             source.displayClientMessage(new TextComponent(String.format("\u4f60\u6478\u4e86\u6478[%s]\uff0c\u88ab\u54ac\u4e86\u4e00\u53e3", target.getName().getString())), true);
-
-            Vec3 position = target.getPosition(0.0F);
-            ServerLevel level = (ServerLevel)event.getWorld();
-            level.sendParticles(ParticleTypes.LARGE_SMOKE, position.x, position.y, position.z, 20,1,2,1,1);
+            TouchParticles(ParticleTypes.LARGE_SMOKE, (ServerLevel)event.getWorld(), target);
         }else{
             target.displayClientMessage(new TextComponent(String.format("[%s]\u6478\u4e86\u6478\u4f60\uff0c\u611f\u89c9\u5f88\u8212\u9002", source.getName().getString())), true);
             source.displayClientMessage(new TextComponent(String.format("\u4f60\u6478\u4e86\u6478[%s]\uff0c\u611f\u89c9\u5f88\u8212\u9002", target.getName().getString())), true);
             target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 1));
+            TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), target);
         }
     }
 }
