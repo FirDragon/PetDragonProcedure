@@ -3,11 +3,9 @@ package com.cute_dragon_project.xingxing.pet_dragon_procedure;
 import com.cute_dragon_project.xingxing.pet_dragon_procedure.events.TouchDragon;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
@@ -25,6 +23,7 @@ public class PetDragonProcedureMod {
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final String MOD_ID = "pet_dragon_procedure";
+    public static final boolean IS_DEBUG = false;
     public PetDragonProcedureMod() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
@@ -54,9 +53,9 @@ public class PetDragonProcedureMod {
 
     private void processIMC(final InterModProcessEvent event) {
         // Some example code to receive and process InterModComms from other mods
-//        LOGGER.info("Got IMC {}", event.getIMCStream().
-//            map(m -> m.messageSupplier().get()).
-//            collect(Collectors.toList()));
+        LOGGER.info("Got IMC {}", event.getIMCStream().
+            map(m -> m.messageSupplier().get()).
+            collect(Collectors.toList()));
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call

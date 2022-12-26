@@ -20,16 +20,16 @@ public class SensingNearbyTeammatesKeyEvent {
         this.type = type;
         this.pressedms = pressedms;
     }
-    public static SensingNearbyTeammatesKeyEvent encode(FriendlyByteBuf buffer) {
+    public static SensingNearbyTeammatesKeyEvent decode(FriendlyByteBuf buffer) {
         return new SensingNearbyTeammatesKeyEvent(
             buffer.readInt(),buffer.readInt()
         );
     }
-    public static void decode(SensingNearbyTeammatesKeyEvent message, FriendlyByteBuf buffer) {
+    public static void encode(SensingNearbyTeammatesKeyEvent message, FriendlyByteBuf buffer) {
         buffer.writeInt(message.type);
         buffer.writeInt(message.pressedms);
     }
-    public static void handler(SensingNearbyTeammatesKeyEvent message, Supplier<NetworkEvent.Context> contextSupplier) {
+    public static void consumer(SensingNearbyTeammatesKeyEvent message, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
         context.enqueueWork(() -> {
             pressAction(context.getSender(), message.type, message.pressedms);
@@ -51,9 +51,9 @@ public class SensingNearbyTeammatesKeyEvent {
         MESSAGE_HANDLER.registerMessage(
             0,
             SensingNearbyTeammatesKeyEvent.class,
-            SensingNearbyTeammatesKeyEvent::decode,
             SensingNearbyTeammatesKeyEvent::encode,
-            SensingNearbyTeammatesKeyEvent::handler
+            SensingNearbyTeammatesKeyEvent::decode,
+            SensingNearbyTeammatesKeyEvent::consumer
         );
     }
 }

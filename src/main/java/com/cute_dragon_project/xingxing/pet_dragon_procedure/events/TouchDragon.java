@@ -12,20 +12,20 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.entity.Entity;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.builder.ILoopType;
-import software.bernie.geckolib3.core.controller.AnimationController;
 
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-@Mod.EventBusSubscriber
+import static com.cute_dragon_project.xingxing.pet_dragon_procedure.PetDragonProcedureMod.IS_DEBUG;
+
+@Mod.EventBusSubscriber()
 public class TouchDragon {
     private Field dummyDragon = null;
     private static Method isDragonMethod = null;
@@ -34,17 +34,19 @@ public class TouchDragon {
     {
         try {
             Class<?> DragonUtils = Class.forName("by.dragonsurvivalteam.dragonsurvival.util.DragonUtils");
-            Class<?> DragonEntity = Class.forName("by.dragonsurvivalteam.dragonsurvival.common.entity.DragonEntity");
-            Class<?> ClientDragonRender = Class.forName("by.dragonsurvivalteam.dragonsurvival.client.render.ClientDragonRender");
+//            Class<?> DragonEntity = Class.forName("by.dragonsurvivalteam.dragonsurvival.common.entity.DragonEntity");
+//            Class<?> ClientDragonRender = Class.forName("by.dragonsurvivalteam.dragonsurvival.client.render.ClientDragonRender");
             isDragonMethod = DragonUtils.getMethod("isDragon", Entity.class);
-            biteAnimationControllerField = DragonEntity.getDeclaredField("biteAnimationController");
-            biteAnimationControllerField.setAccessible(true);
-            dummyDragon = ClientDragonRender.getDeclaredField("dummyDragon");
-            dummyDragon.setAccessible(true);
-        } catch (ClassNotFoundException | NoSuchMethodException | NoSuchFieldException ignored) {
+//            biteAnimationControllerField = DragonEntity.getDeclaredField("biteAnimationController");
+//            biteAnimationControllerField.setAccessible(true);
+//            dummyDragon = ClientDragonRender.getDeclaredField("dummyDragon");
+//            dummyDragon.setAccessible(true);
+        } catch (ClassNotFoundException | NoSuchMethodException ignored) {
         }
     }
     public static boolean isDragon(Entity entity){
+        if (isDragonMethod == null)
+            return false;
         try {
             return (boolean)isDragonMethod.invoke(null, entity);
         } catch (IllegalAccessException | InvocationTargetException e) {
@@ -76,14 +78,17 @@ public class TouchDragon {
     @SubscribeEvent
     void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
     {
-
-        if (isDragonMethod == null)
-            return;
         Player source = event.getPlayer();
         if (event.getWorld().isClientSide())
         {
             swing(source);
             return;
+        }
+        if (IS_DEBUG)
+        {
+            Vec3 position = event.getPlayer().getPosition(0.0F);
+            if (event.getWorld() instanceof ServerLevel level)
+                TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), (ServerPlayer) event.getPlayer());
         }
         if (!source.getMainHandItem().isEmpty() ||
             !(event.getTarget() instanceof ServerPlayer target) ||
