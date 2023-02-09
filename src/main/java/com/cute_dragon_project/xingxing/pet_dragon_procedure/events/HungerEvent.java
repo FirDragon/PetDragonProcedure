@@ -14,7 +14,7 @@ import net.minecraft.world.entity.Entity;
 import javax.annotation.Nullable;
 
 @Mod.EventBusSubscriber
-public class HungerwarnProcedure {
+public class HungerEvent {
 	private static final Style RED_BOLD_STYLE = Style.EMPTY.withBold(true).withColor(TextColor.fromRgb(0xff0000));
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {

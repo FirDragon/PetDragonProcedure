@@ -1,6 +1,6 @@
 {
   "key.pet_dragon_procedure.n_key": "Sensing nearby teammates",
-  "text.you_are_very_hungry":"You feel very hungry! Need to eat!",
+  "text.you_are_very_hungry":"You feel very hungry! Need food!",
   "text.sensing_nearby_teammates":"You are sensing a nearby teammate.",
   "text.touch_you":"%s touched you.",
   "text.touch_got_bitten":"You touched %s and got bitten.",

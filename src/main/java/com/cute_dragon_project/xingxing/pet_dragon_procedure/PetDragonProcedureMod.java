@@ -1,6 +1,6 @@
 package com.cute_dragon_project.xingxing.pet_dragon_procedure;
 
-import com.cute_dragon_project.xingxing.pet_dragon_procedure.events.TouchDragon;
+import com.cute_dragon_project.xingxing.pet_dragon_procedure.events.TouchDragonEvent;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.MinecraftForge;
@@ -34,7 +34,7 @@ public class PetDragonProcedureMod {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
-        MinecraftForge.EVENT_BUS.register(new TouchDragon());
+        MinecraftForge.EVENT_BUS.register(new TouchDragonEvent());
     }
 
     private void setup(final FMLCommonSetupEvent event) {

@@ -4,7 +4,7 @@ plugins {
 
 
 group = 'com.cute_dragon_project.xingxing'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 
 java {
     archivesBaseName = 'PetDragonProcedure'

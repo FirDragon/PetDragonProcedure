@@ -1,9 +1,7 @@
 package com.cute_dragon_project.xingxing.pet_dragon_procedure.events;
 
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -12,13 +10,11 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.world.entity.Entity;
 
-import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -26,11 +22,11 @@ import java.lang.reflect.Method;
 import static com.cute_dragon_project.xingxing.pet_dragon_procedure.PetDragonProcedureMod.IS_DEBUG;
 
 @Mod.EventBusSubscriber()
-public class TouchDragon {
-    private Field dummyDragon = null;
+public class TouchDragonEvent {
+    private static final Field dummyDragon = null;
     private static Method isDragonMethod = null;
     Field biteAnimationControllerField = null;
-    public TouchDragon()
+    public TouchDragonEvent()
     {
         try {
             Class<?> DragonUtils = Class.forName("by.dragonsurvivalteam.dragonsurvival.util.DragonUtils");
@@ -72,8 +68,7 @@ public class TouchDragon {
     }
     private void TouchParticles(SimpleParticleType particleType, ServerLevel level,ServerPlayer player)
     {
-        Vec3 position = player.getPosition(0.0F);
-        level.sendParticles(particleType, position.x, position.y, position.z, 20,1,2,1,1);
+        level.sendParticles(particleType, player.getX(), player.getY(), player.getZ(), 20,1,2,1,1);
     }
     @SubscribeEvent
     void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
@@ -99,12 +94,12 @@ public class TouchDragon {
         {
             target.displayClientMessage(new TranslatableComponent("text.touch_you", source.getName().getString()), true);
             source.displayClientMessage(new TranslatableComponent("text.touch_got_bitten", target.getName().getString()), true);
-            target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 1));
+            target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 0));
             TouchParticles(ParticleTypes.LARGE_SMOKE, (ServerLevel)event.getWorld(), target);
         }else{
             target.displayClientMessage(new TranslatableComponent("text.touch_felt_comfortable", source.getName().getString()), true);
             source.displayClientMessage(new TranslatableComponent("text.you_felt_comfortable", target.getName().getString()), true);
-            target.addEffect(new MobEffectInstance(MobEffects.LUCK, 100, 1));
+            target.addEffect(new MobEffectInstance(MobEffects.LUCK, 100, 0));
             TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), target);
         }
     }

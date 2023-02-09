@@ -1,7 +1,7 @@
 package com.cute_dragon_project.xingxing.pet_dragon_procedure.events;
 
 import com.cute_dragon_project.xingxing.pet_dragon_procedure.messages.MessageRegistry;
-import com.cute_dragon_project.xingxing.pet_dragon_procedure.messages.SensingNearbyTeammatesKeyEvent;
+import com.cute_dragon_project.xingxing.pet_dragon_procedure.messages.SensingNearbyTeammatesMessage;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,7 +28,7 @@ public class KeyClickEvent {
             if (Minecraft.getInstance().screen == null) {
                 if (event.getKey() == N_KEY.getKey().getValue()) {
                     if (event.getAction() == GLFW.GLFW_PRESS) {
-                        MessageRegistry.MESSAGE_HANDLER.sendToServer(new SensingNearbyTeammatesKeyEvent(0, 0));
+                        MessageRegistry.MESSAGE_HANDLER.sendToServer(new SensingNearbyTeammatesMessage(0, 0));
                         //SensingNearbyTeammatesKeyEvent.pressAction(Minecraft.getInstance().player, 0, 0);
                     }
                 }
