@@ -5,8 +5,8 @@ import com.cute_dragon_project.xingxing.pet_dragon_procedure.messages.SensingNea
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -17,14 +17,14 @@ public class KeyClickEvent {
     public static final KeyMapping N_KEY = new KeyMapping("key.pet_dragon_procedure.n_key", GLFW.GLFW_KEY_APOSTROPHE, "key.categories.misc");
 
     @SubscribeEvent
-    public static void registerKeyBindings(FMLClientSetupEvent event) {
-        ClientRegistry.registerKeyBinding(N_KEY);
+    public static void registerKeyBindings(RegisterKeyMappingsEvent event) {
+        event.register(N_KEY);
     }
 
     @Mod.EventBusSubscriber({Dist.CLIENT})
     public static class KeyEventListener {
         @SubscribeEvent
-        public static void onKeyInput(InputEvent.KeyInputEvent event) {
+        public static void onKeyInput(InputEvent.Key event) {
             if (Minecraft.getInstance().screen == null) {
                 if (event.getKey() == N_KEY.getKey().getValue()) {
                     if (event.getAction() == GLFW.GLFW_PRESS) {

@@ -1,8 +1,9 @@
 package com.cute_dragon_project.xingxing.pet_dragon_procedure;
 
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -16,7 +17,7 @@ public class SensingNearbyTeammates {
 		if (!(player instanceof ServerPlayer serverPlayer))
 			return;
 
-		TranslatableComponent translatableComponent = new TranslatableComponent("text.sensing_nearby_teammates");
+		MutableComponent translatableComponent = Component.translatable("text.sensing_nearby_teammates");
 		translatableComponent.setStyle(GREEN_BOLD_STYLE);
 		serverPlayer.displayClientMessage(translatableComponent, (true));
 		List<ServerPlayer> inRangePlayers = serverPlayer.getLevel().getPlayers(

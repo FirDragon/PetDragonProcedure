@@ -1,8 +1,9 @@
 package com.cute_dragon_project.xingxing.pet_dragon_procedure.events;
 
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -28,7 +29,7 @@ public class HungerEvent {
 		if ((entity instanceof Player _plr ? _plr.getFoodData().getFoodLevel() : 0) <= 4) {
 			if (entity instanceof Player _player && !_player.level.isClientSide())
 			{
-				TranslatableComponent showText = new TranslatableComponent("text.you_are_very_hungry");
+				MutableComponent showText = Component.translatable("text.you_are_very_hungry");
 				showText.setStyle(RED_BOLD_STYLE);
 				_player.displayClientMessage(showText, (true));
 			}

@@ -2,7 +2,7 @@ package com.cute_dragon_project.xingxing.pet_dragon_procedure.events;
 
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -73,17 +73,17 @@ public class TouchDragonEvent {
     @SubscribeEvent
     void onRightClickEntity(PlayerInteractEvent.EntityInteract event)
     {
-        Player source = event.getPlayer();
-        if (event.getWorld().isClientSide())
+        Player source = event.getEntity();
+        if (event.getLevel().isClientSide())
         {
             swing(source);
             return;
         }
         if (IS_DEBUG)
         {
-            Vec3 position = event.getPlayer().getPosition(0.0F);
-            if (event.getWorld() instanceof ServerLevel level)
-                TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), (ServerPlayer) event.getPlayer());
+            Vec3 position = event.getEntity().getPosition(0.0F);
+            if (event.getLevel() instanceof ServerLevel level)
+                TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getLevel(), (ServerPlayer) event.getEntity());
         }
         if (!source.getMainHandItem().isEmpty() ||
             !(event.getTarget() instanceof ServerPlayer target) ||
@@ -92,15 +92,15 @@ public class TouchDragonEvent {
             return;
         if (Math.random() < 0.5F)
         {
-            target.displayClientMessage(new TranslatableComponent("text.touch_you", source.getName().getString()), true);
-            source.displayClientMessage(new TranslatableComponent("text.touch_got_bitten", target.getName().getString()), true);
+            target.displayClientMessage(Component.translatable("text.touch_you", source.getName().getString()), true);
+            source.displayClientMessage(Component.translatable("text.touch_got_bitten", target.getName().getString()), true);
             target.addEffect(new MobEffectInstance(MobEffects.POISON, 10, 0));
-            TouchParticles(ParticleTypes.LARGE_SMOKE, (ServerLevel)event.getWorld(), target);
+            TouchParticles(ParticleTypes.LARGE_SMOKE, (ServerLevel)event.getLevel(), target);
         }else{
-            target.displayClientMessage(new TranslatableComponent("text.touch_felt_comfortable", source.getName().getString()), true);
-            source.displayClientMessage(new TranslatableComponent("text.you_felt_comfortable", target.getName().getString()), true);
+            target.displayClientMessage(Component.translatable("text.touch_felt_comfortable", source.getName().getString()), true);
+            source.displayClientMessage(Component.translatable("text.you_felt_comfortable", target.getName().getString()), true);
             target.addEffect(new MobEffectInstance(MobEffects.LUCK, 100, 0));
-            TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getWorld(), target);
+            TouchParticles(ParticleTypes.HEART, (ServerLevel)event.getLevel(), target);
         }
     }
 }
